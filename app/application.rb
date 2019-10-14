@@ -1,19 +1,18 @@
 require 'pry'
 
 class Application
-  # @@items = [Item.new(name, price)]
+  @@items = [Item.new("Apples",5.23), Item.new("Oranges",2.43)]
 
   def call(env)
     resp = Rack::Response.new
     req = Rack::Request.new(env)
 
 
-    if req.path=="/items"
-      item.name = req.path(/items/).last
-      binding.pry
+    if req.path.match(/items/)
+      item_name = req.path.split("/items/").last
         
       if item = @@items.find {|i| i.name == item_name}
-            resp.write item.price
+      resp.write item.price
             # resp.write "Your items are #{item.name}"
             # resp.status = 200
             
